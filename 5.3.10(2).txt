@@ -1,0 +1,93 @@
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+class FlightBooking {
+public:
+FlightBooking(int id, int capacity, int reserved);
+void set_capacity(int capacity);
+void set_reserved(int reserved);
+void add(int n);
+void cancel(int n);
+void printStatus();
+private:
+int id;
+int capacity;
+int reserved;
+};
+void FlightBooking::set_reserved(int reserved){
+    if (reserved < 0)
+        this->reserved = 0;
+        else if(reserved > this->capacity)
+        cout << "Unfortunately there are no vacancies \n ";
+        else
+        this->reserved = reserved;
+}
+void FlightBooking::add(int n){
+    if (n > 0)
+    {
+        this->set_reserved(this->reserved + n);
+    }
+}
+void FlightBooking::cancel(int n){
+   if (this->reserved >= 0)
+   {
+    this->set_reserved(this->reserved - n);
+   }
+}
+void FlightBooking::set_capacity(int capacity){
+    this->capacity = capacity;
+}
+void FlightBooking::printStatus()
+{
+double percent = 0;
+if (this != nullptr)
+{
+    percent = (100 * this->reserved)/this->capacity;
+    printf("\nFlight %d: %d/%d (%lf%) seats reserved", this->id, this->reserved, this->capacity,percent);
+}
+}
+FlightBooking::FlightBooking(int id, int capacity, int reserved)
+{
+this->id = id;
+this->set_capacity(capacity);
+this->set_reserved(reserved);
+if (this->reserved > this->capacity)
+	{
+		reserved = 0;
+		cout << "Error 404 : Something went wrong...Please try again \n";
+	}
+}
+int main() {
+int reserved = 0,
+capacity = 0;
+std::cout << "Flight capacity: ";
+std::cin >> capacity;
+std::cout << "Reserved seats: ";
+std::cin >> reserved;
+FlightBooking booking(1, capacity, reserved);
+string command;
+while(true){
+    cout << "\nWrite your command : ";
+    cin >> command;
+    if(command == "quit")
+    break;
+    cout << "How many seats would you like to reserve/cancel : ";
+    int numb;
+    if(command == "add")
+    {
+    cin >> numb;
+    booking.add(numb);
+    }
+    else if(command == "cancel")
+    {
+    cin >> numb;
+    booking.cancel(numb);
+    }
+    else{
+        printf("Error 972");
+    }
+}
+return 0;
+}

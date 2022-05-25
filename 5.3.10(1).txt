@@ -1,0 +1,53 @@
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+class FlightBooking {
+public:
+FlightBooking(int id, int capacity, int reserved);
+void set_capacity(int capacity);
+void set_reserved(int reserved);
+void printStatus();
+private:
+int id;
+int capacity;
+int reserved;
+};
+void FlightBooking::set_reserved(int reserved){
+    this->reserved = reserved;
+}
+void FlightBooking::set_capacity(int capacity){
+    this->capacity = capacity;
+}
+void FlightBooking::printStatus()
+{
+double percent = 0;
+if (this != nullptr)
+{
+    percent = (100 * this->reserved)/this->capacity;
+    printf("\nFlight %d: %d/%d (%lf%) seats reserved", this->id, this->reserved, this->capacity,percent);
+}
+}
+FlightBooking::FlightBooking(int id, int capacity, int reserved)
+{
+this->id = id;
+this->set_capacity(capacity);
+this->set_reserved(reserved);
+if (this->reserved > this->capacity)
+	{
+		reserved = 0;
+		cout << "Error 404 : Something went wrong...Please try again \n";
+	}
+}
+int main() {
+int reserved = 0,
+capacity = 0;
+std::cout << "Flight capacity: ";
+std::cin >> capacity;
+std::cout << "Reserved seats: ";
+std::cin >> reserved;
+FlightBooking booking(1, capacity, reserved);
+booking.printStatus();
+return 0;
+}

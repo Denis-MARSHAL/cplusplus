@@ -1,0 +1,71 @@
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+class ShopItemOrder
+{
+private:
+string name;
+double price;
+int number;
+public:
+void set_name(string name);
+void set_price(double price);
+void set_number(int NumbofIt);
+string get_name();
+double get_price();
+int get_number();
+double get_total_price();
+void print();
+ShopItemOrder(string name, double price, int number)
+{
+    this->name=name;
+    this->set_price(price);
+    this->set_number(number);
+}
+};
+void ShopItemOrder::set_name(string name){
+    this->name=name;
+}
+void ShopItemOrder::set_price(double price){
+    if(price >= 1)
+    this->price=price;   
+    else
+    this->price=1;
+    }
+void ShopItemOrder::set_number(int NumbofIt)
+{
+    if(NumbofIt >= 1)
+    this->number=NumbofIt;
+    else
+    this->number=1;
+}
+string ShopItemOrder::get_name(){
+    return this->name;
+}
+double ShopItemOrder::get_price(){
+    return this->price;
+}
+int ShopItemOrder::get_number(){
+    return this->number;
+}
+double ShopItemOrder::get_total_price(){
+    double totalPrice = 0;
+    for(int i = 0 ; i < this->number ; i++){
+        totalPrice += this->price;
+    }
+    return totalPrice;
+}
+void ShopItemOrder::print()
+{
+    cout << "Name of Item : " << this->name << " \nHis Price : " << this->price << " \nNumber of Items : " << this->number << "\n"; 
+}
+int main()
+{
+    ShopItemOrder order("Water Morshynska", 4.99, 4);
+    order.print();
+    double totalPrice = order.get_total_price();
+    cout<< "From you : " << totalPrice << "$";
+    return 0;
+}
